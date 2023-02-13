@@ -50,32 +50,39 @@ when frame == 9:
     - calculate final frame bonus
 '''
 
-class Score:
-    def __init__(self, rolls):
-        self.rolls = rolls
+def calc(rolls):
+    numRolls = len(rolls)
     
-    def print(self):
-        numFrames = 0
-        numRolls = len(self.rolls)
-        
-        for x in range(numRolls):
-            currRoll = self.rolls[x]
-            if currRoll == "X":
-                print("STRIKE!!!")
-            elif currRoll == "/":
-                print("Spare!")
-            elif currRoll == "-":
-                print("...miss :(")
-            else:
-                print(currRoll)
-        
+    for x in range(numRolls):
+        currRoll = rolls[x]
+        if currRoll == "X":
+            print("STRIKE!!!")
+        elif currRoll == "/":
+            print("Spare!")
+        elif currRoll == "-":
+            print("...miss :(")
+        else:
+            print(currRoll)
 
+    
+def printScore(rolls):
+    numRolls = len(rolls)
+    
+    for x in range(numRolls):
+        currRoll = rolls[x]
+        if currRoll == "X":
+            print("STRIKE!!!")
+        elif currRoll == "/":
+            print("Spare!")
+        elif currRoll == "-":
+            print("...miss :(")
+        else:
+            print(currRoll)
+    
 def main():
     rolls = ["6","/","X","4","5","X","X","3","/","X","3","4","9","-","X","3","/"]
     
-    curr = Score(rolls)
-    
-    curr.print()
+    printScore(rolls)
 
 main()
     
