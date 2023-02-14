@@ -58,7 +58,7 @@ def calc(rolls):
     
     numRolls = len(rolls)
     
-    for x in range(numRolls):
+    for x in range(len(rolls)):
         roll = rolls[x]
         if frames > 1:
             if roll == "X":
@@ -72,9 +72,29 @@ def calc(rolls):
                 toggle += 1
                 if toggle % 2 == 0:
                     frames -= 1
-        if frames == 1:
-            print("Frames", frames)
-            
+        elif frames == 1:
+            if numRolls == 3:
+                if roll == "X":
+                    score = score + tally(count, roll, rolls) + tally(count, rolls[x+1], rolls) + tally(count, rolls[x+2], rolls)
+                    frames -= 1
+                else:
+                    score = score + tally(count, roll, rolls)
+            elif numRolls == 2:
+                if roll == "X" or roll == "/":
+                    score = score + tally(count, roll, rolls) + tally(count, rolls[x+1], rolls)
+                    frames -= 1
+                else:
+                    score = score + tally(count, roll, rolls)
+                    toggle += 1
+                    if toggle % 2 == 0:
+                        frames -= 1
+            elif numRolls == 1:
+                score = score + tally(count, roll, rolls)
+                if toggle % 2 == 0:
+                        frames -= 1
+                
+                
+        numRolls -= 1
         count += 1
     
     print("Score:", score)
