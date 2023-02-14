@@ -10,8 +10,8 @@ Have a list of rolls
 
 '''
 *****TEST CASES*****
-[6,/,X,4,5,X,X,3,/,X,3,4,9,-,X,3,/] -> 164
-[X,X,X,X,X,X,X,X,X,X,X,X] -> 300
+["6","/","X","4","5","X","X","3","/","X","3","4","9","-","X","3","/"] -> 164
+["X","X","X","X","X","X","X","X","X","X","X","X"] -> 300
 [2,3,2,3,2,3,2,3,2,3,2,3,2,4,2,3,4,2,4,/,9] -> 66 
 
 ***PARAMETERS***
@@ -51,20 +51,44 @@ when frame == 9:
 '''
 
 def calc(rolls):
+    count = 0
+    score = 0
+    frames = 10
+    toggle = 0
+    
     numRolls = len(rolls)
     
     for x in range(numRolls):
-        currRoll = rolls[x]
-        if currRoll == "X":
-            print("STRIKE!!!")
-        elif currRoll == "/":
-            print("Spare!")
-        elif currRoll == "-":
-            print("...miss :(")
-        else:
-            print(currRoll)
-
+        roll = rolls[x]
+        if frames > 1:
+            if roll == "X":
+                score = score + tally(count, roll, rolls) + tally(count, rolls[x+1], rolls) + tally(count, rolls[x+2], rolls)
+                frames -= 1
+            elif roll == "/":
+                score = score + tally(count, roll, rolls) + tally(count, rolls[x+1], rolls)
+                frames -= 1
+            else:
+                score = score + tally(count, roll, rolls)
+                toggle += 1
+                if toggle % 2 == 0:
+                    frames -= 1
+        if frames == 1:
+            print("Frames", frames)
+            
+        count += 1
     
+    print("Score:", score)
+    
+def tally(count, roll, rolls):
+    if roll == "X":
+        return 10
+    elif roll == "/":
+        return int((10-rolls[count-1]))
+    elif roll == "-":
+        return 0
+    else:
+        return int(roll)
+
 def printScore(rolls):
     numRolls = len(rolls)
     
@@ -78,11 +102,11 @@ def printScore(rolls):
             print("...miss :(")
         else:
             print(currRoll)
-    
+
 def main():
-    rolls = ["6","/","X","4","5","X","X","3","/","X","3","4","9","-","X","3","/"]
+    rolls = ["X","X","X","X","X","X","X","X","X","X","X","X"]
     
-    printScore(rolls)
+    calc(rolls)
 
 main()
     
