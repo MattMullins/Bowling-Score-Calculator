@@ -12,7 +12,7 @@ Have a list of rolls
 *****TEST CASES*****
 ["6","/","X","4","5","X","X","3","/","X","3","4","9","-","X","3","/"] -> 164
 ["X","X","X","X","X","X","X","X","X","X","X","X"] -> 300
-[2,3,2,3,2,3,2,3,2,3,2,3,2,4,2,3,4,2,4,/,9] -> 66 
+["2","3","2","3","2","3","2","3","2","3","2","3","2","4","2","3","4","2","4","/","9"] -> 66 
 
 ***PARAMETERS***
 Min # of rolls: 12
@@ -103,7 +103,7 @@ def tally(count, roll, rolls):
     if roll == "X":
         return 10
     elif roll == "/":
-        return int((10-rolls[count-1]))
+        return int((10 - int(rolls[count - 1])))
     elif roll == "-":
         return 0
     else:
@@ -124,7 +124,7 @@ def printScore(rolls):
             print(currRoll)
 
 def main():
-    rolls = ["X","X","X","X","X","X","X","X","X","X","X","X"]
+    rolls = ["2","3","2","3","2","3","2","3","2","3","2","3","2","4","2","3","4","2","4","/","9"]
     
     calc(rolls)
 
